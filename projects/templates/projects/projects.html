@@ -1,0 +1,14 @@
+{% extends 'layouts/master.html' %}
+
+{% block main-content %}
+<h1>Projects HTML {{ msg }}</h1>
+{% for project in projects %}
+<li>Name: {{ project.title }}</li>
+{% endfor %}
+<p>
+    Occaecat ullamco ut consequat ipsum non tempor. Ad proident voluptate consectetur qui dolor duis enim elit
+    aliqua. Enim anim non ea laboris laboris dolor ea fugiat quis enim. Amet incididunt quis cupidatat nostrud.
+    Fugiat quis mollit magna anim mollit do ut. Consequat eu nisi ex duis sit eiusmod irure commodo sunt voluptate
+    aliqua ullamco eu voluptate. Amet aute aliquip deserunt eiusmod pariatur irure sit proident laborum.
+</p>
+{% endblock main-content %}
