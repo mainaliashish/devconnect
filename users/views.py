@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
 from django.contrib import messages
@@ -19,6 +20,16 @@ def userProfile(request, pk):
     otherSkills = profile.skill_set.filter(description="")
     context = { 'profile': profile, 'topSkills': topSkills, 'otherSkills': otherSkills }
     return render(request, 'users/user-profile.html', context)
+
+@login_required(login_url='login')
+def userAccount(request):
+    # user = request.user
+    profile = request.user.profile
+    topSkills = profile.skill_set.all()
+    projects = profile.project_set.all()
+    context = {'profile': profile, 'topSkills': topSkills, 'projects': projects}
+    return render(request, 'users/account.html', context)
+
 
 def loginUser(request):
     if request.user.is_authenticated:
