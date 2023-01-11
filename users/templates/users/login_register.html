@@ -1,0 +1,24 @@
+{% extends 'layouts/master.html' %}
+
+{% block main-content %}
+{% if page == 'register' %}
+    <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br/>
+        <input type="submit" value="Register User" />
+        <br/>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+{% else %}
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" id="username" placeholder="Enter your username" />
+        <input type="password" name="password" id="password" placeholder="Enter your password" />
+        <input type="submit" value="Login" />
+        <br/>
+    </form>
+    <p>Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+{% endif %}
+
+{% endblock %}
