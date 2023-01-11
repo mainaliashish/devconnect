@@ -1,8 +1,8 @@
 {% if messages %}
     {% for message in messages %}
-        <div class="alert alert--{{ message.tags }}">
-            <p class="{{ message.tags }}__message">{{ message }}</p>
-            <button class="{{ message.tags }}__close">&Cross;</button>
+        <div class="alert  alert--{{message.tags}}">
+            <p class="alert__message">{{message}}</p>
+            <button class="alert__close">x</button>
         </div>
     {% endfor %}
 {% endif %}
