@@ -3,11 +3,12 @@ from .models import Project, Tag, Review
 from django.contrib.auth.decorators import login_required
 
 from .forms import ProjectForm
+from .utils import searchProjects
 
 # CRUD operations in django
 def projects(request):
-    projects = Project.objects.all()
-    context = { 'projects': projects }
+    projects, search_query = searchProjects(request)
+    context = { 'projects': projects, 'search_query': search_query }
     return render(request, 'projects/projects.html', context)
 
 @login_required(login_url='login')
