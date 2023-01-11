@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 import uuid
 
 from django.db.models.signals import post_save, post_delete
+# importing decorator
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -47,10 +49,19 @@ class Skill(models.Model):
         return self.name
 
 
-# implementation of signals (just like query callbacks in rails)
-def profileUpdated(sender, instance, created, **kwargs):
-    print('Profile saved!')
-    print(f"Instance : {instance}")
-    print(f"Created: {created}")
 
-post_save.connect(profileUpdated, sender=Profile)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
