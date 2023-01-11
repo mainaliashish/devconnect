@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-qdq7-tjoxsvr!@t_bzh%jmajm9=uo=o^d3eg_)7=n5$1w5zoxg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Add project app to install app list
-    'projects.apps.ProjectsConfig'
+    'projects.apps.ProjectsConfig',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,7 @@ TEMPLATES = [
         'DIRS': [
             # Specify a template path
             # os.path.join(BASE_DIR, 'templates')
-            BASE_DIR / 'templates',
+            BASE_DIR, 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -122,7 +123,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+MEDIA_URL = ''
+
+# Set static files directory
+STATICFILES_DIRS = [
+    BASE_DIR  / 'static',
+]
+
+# Set directory where uploaded images to be saved
+MEDIA_ROOT = BASE_DIR / 'static/images'
+# For hosting static files
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

@@ -1,0 +1,12 @@
+{% extends 'layouts/master.html' %}
+
+{% block main-content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to delete? {{ object.title }}</p>
+    <a href="{% url 'projects' %}"><button>Go back!</button></a>
+    <input type="submit" value="Confirm">
+</form>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+from django.urls import path
+from . import views
+
+# URL patterns for projects app
+urlpatterns = [
+    path('', views.profiles, name='profiles'),
+    path('profile/<str:pk>/', views.userProfile, name='user-profile'),
+]
