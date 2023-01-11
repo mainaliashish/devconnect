@@ -6,20 +6,23 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
 from django.contrib import messages
 
-from .models import Profile
-
+from .models import Profile, Skill
+from .utils import searchProfiles
 
 def profiles(request):
-    profiles = Profile.objects.all()
-    context = { 'profiles': profiles }
+    profiles, search_query = searchProfiles(request)
+    context = {'profiles': profiles, 'search_query': search_query}
     return render(request, 'users/profiles.html', context)
+
 
 def userProfile(request, pk):
     profile = Profile.objects.get(id=pk)
     topSkills = profile.skill_set.exclude(description__exact="")
     otherSkills = profile.skill_set.filter(description="")
-    context = { 'profile': profile, 'topSkills': topSkills, 'otherSkills': otherSkills }
+    context = {'profile': profile, 'topSkills': topSkills,
+               'otherSkills': otherSkills}
     return render(request, 'users/user-profile.html', context)
+
 
 @login_required(login_url='login')
 def userAccount(request):
@@ -27,7 +30,8 @@ def userAccount(request):
     profile = request.user.profile
     topSkills = profile.skill_set.all()
     projects = profile.project_set.all()
-    context = {'profile': profile, 'topSkills': topSkills, 'projects': projects}
+    context = {'profile': profile,
+               'topSkills': topSkills, 'projects': projects}
     return render(request, 'users/account.html', context)
 
 
@@ -91,6 +95,7 @@ def deleteSkill(request, pk):
     context = {'object': skill}
     return render(request, 'delete_template.html', context)
 
+
 def loginUser(request):
     if request.user.is_authenticated:
         return redirect('profiles')
@@ -128,10 +133,12 @@ def registerUser(request):
             login(request, user)
             return redirect('edit-account')
         else:
-            messages.success(request, "An error has occurred during registration.")
+            messages.success(
+                request, "An error has occurred during registration.")
 
-    context = { 'page':  page, 'form': form }
+    context = {'page':  page, 'form': form}
     return render(request, 'users/login_register.html', context)
+
 
 def logoutUser(request):
     logout(request)
