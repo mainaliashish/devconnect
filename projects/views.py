@@ -3,12 +3,14 @@ from .models import Project, Tag, Review
 from django.contrib.auth.decorators import login_required
 
 from .forms import ProjectForm
-from .utils import searchProjects
+from .utils import searchProjects, paginate_projects
 
 # CRUD operations in django
 def projects(request):
     projects, search_query = searchProjects(request)
-    context = { 'projects': projects, 'search_query': search_query }
+    custom_range, projects = paginate_projects(request, projects, 6)
+
+    context = { 'projects': projects, 'search_query': search_query, 'custom_range': custom_range }
     return render(request, 'projects/projects.html', context)
 
 @login_required(login_url='login')
