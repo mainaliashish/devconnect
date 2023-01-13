@@ -3,6 +3,8 @@ from django.db.models.signals import post_save, post_delete
 # importing decorator
 # from django.dispatch import receiver
 from .models import Profile
+from django.core.mail import send_mail
+from django.conf import settings
 
 # implementation of signals (just like query callbacks in rails)
 # def profileUpdated(sender, instance, created, **kwargs):
@@ -24,6 +26,20 @@ def createProfile(sender, instance, created, **kwargs):
             email=user.email,
             name=user.first_name
         )
+
+        # send email after a user profile is created
+        subject = "Welcome to Dev Search community"
+        message = "We are glad you are here."
+
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [profile.email],
+            fail_silently=False
+        )
+
+
 
 
 def updateUser(sender, instance, created, **kwargs):
