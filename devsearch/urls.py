@@ -8,6 +8,7 @@ urlpatterns = [
     # include sub-apps urls in the main app
     path('projects/', include('projects.urls')),
     path('', include('users.urls')),
+    path('api/', include('api.urls')),
 ]
 
 # For loading images
